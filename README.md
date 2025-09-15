@@ -1,98 +1,173 @@
-# Desafio Backend - LEDS
-*Bem-vindo!* 👋
+# Projeto LEDS - Eliabe de Jesus Loureiro
 
-Neste desafio, você terá a oportunidade de demonstrar que possui as habilidades necessárias para atuar no time de backend do laboratório.
+## 📌 Contextualização
+O desafio consiste em desenvolver um sistema que permita realizar buscas em concursos públicos e candidatos cadastrados.
 
-# Contextualização
+### Funcionalidades principais:
+1. **Buscar concurso por CPF**  
+   - O sistema lista os órgãos, editais e códigos de concursos compatíveis com o perfil do candidato, usando as profissões cadastradas.
 
-O desafio é desenvolver um programa que permita realizar as seguintes buscas: 
-1. Listar os **órgãos, códigos e editais dos concursos públicos** que se encaixam no perfil do candidato, tomando como base o seu **CPF**; 
-2. Listar o **nome, data de nascimento e o CPF** dos candidatos que se encaixam no perfil do concurso tomando com base o **Código do Concurso** do concurso público;
+2. **Buscar candidatos por código de concurso**  
+   - O sistema lista todos os candidatos que possuem profissões compatíveis com as vagas do concurso informado.
 
-O arquivo **candidatos.txt** contém as informações dos candidatos:
+---
 
-| Nome  | Data de Nascimento  | CPF |  Profissões|
-|---|---|---|---|
-| Lindsey Craft  |  19/05/1976  |  182.845.084-34  |  [carpinteiro]  | 
-| Jackie Dawson  |  14/08/1970  |  311.667.973-47  |  [marceneiro, assistente administrativo]  |
-| Cory Mendoza |   11/02/1957 |  565.512.353-92  |  [carpinteiro, marceneiro] |
+## 🚀 Tecnologias Utilizadas
+- **Python 3.10+**
+- **SQLite3** (banco de dados relacional nativo do Python)
+- **FastAPI** (para expor a API REST)
+- **Uvicorn** (servidor ASGI para rodar a API)
+- **CSV** (para importação inicial de dados)
+- **Pytest** (para testes unitários)
 
-O arquivo **concursos.txt** contém as informações dos concursos públicos:
+---
 
-| Órgão  | Edital  | Código do Concurso | Lista de vagas|
-|---|---|---|---|
-| SEDU  | 9/2016  |  61828450843  |  [analista de sistemas, marceneiro]  | 
-| SEJUS | 15/2017  |  61828450843  |  [carpinteiro,professor de matemática,assistente administrativo] |
-| SEJUS | 17/2017 |  95655123539  |  [professor de matemática] |
+## 🛠️ Estrutura do Projeto
 
-🤩 **As tecnologias a serem utilizadas na implementação da solução ficam a seu critério!**
+```
+📂 Projeto-LEDS
+│── main.py              # Interface CLI do sistema
+│── api.py               # API REST com FastAPI
+│── modulo.py            # Funções de negócio (carregar e buscar dados)
+│── database_setup.py    # Criação do banco e tabelas
+│── importar_dados.py    # Importação dos dados CSV para o banco
+│── test_modulo.py       # Testes unitários com Pytest
+│── projeto_leds.db      # Banco de dados SQLite (gerado após setup/importação)
+│── requirements.txt     # Dependências do projeto
+│── README.md            # Documentação
+```
 
-# Como entregar?
-1. Faça um **fork** do repositório. Nesse fork esperamos encontrar uma documentação completa da solução e a listagem dos diferenciais implementados.
-2. Abra um **pull request (PR)** do seu fork para o nome repositório com o seu nome como título. Assim conseguimos te localizar melhor e ver que você já finalizou o desafio!
+---
 
-🚨 **Atenção**: você deve enviar apenas o código fonte. Não serão aceitos códigos compilados.
+## ⚙️ Como Configurar o Projeto
 
-## Avaliação
+### 1. Clone o repositório
+```bash
+git clone <seu-repositorio>
+cd Projeto-LEDS
+```
 
-O programa será avaliado levando em conta os seguintes critérios:
+### 2. Crie e ative um ambiente virtual (opcional, mas recomendado)
+```bash
+python -m venv venv
+venv\Scripts\activate   # Windows
+source venv/bin/activate # Linux/Mac
+```
 
-| Critério  | Valor | 
-|---|---|
-| Legibilidade do Código |  10  |
-| Documentação do código |  10  |
-| Documentação da solução |  10  |
-| Tratamento de Erros | 10 | 
-| Total | 40 |
+### 3. Instale as dependências
+```bash
+pip install -r requirements.txt
+```
 
-A sua pontuação será a soma dos valores obtidos nos critérios acima.
+### 4. Crie o banco de dados
+```bash
+python database_setup.py
+```
 
-## Diferenciais 
-Você pode **aumentar sua pontuação** implementando os seguintes diferenciais:
+### 5. Importe os dados dos arquivos CSV
+```bash
+python importar_dados.py
+```
 
-| Item  | Pontos Ganhos | 
-|---|---|
-| Criar um [serviço](https://martinfowler.com/articles/microservices.html) com o problema |  30  |
-| Utilizar banco de dados |  30  |
-| Implementar Clean Code |  20  |
-| Implementar o padrão de programação da tecnologia escolhida |  20  |
-| Qualidade de [Código com SonarQube](https://about.sonarcloud.io/) |  15  |
-| Implementar testes unitários |  15  |
-| Implementar testes comportamentais |  15  |
-| Implementar integração com [Github Action](https://github.com/features/actions)  |  10  |
-| Implementar integração com Github Action + SonarQube |  10  |
-| Implementar usando Docker | 5 |
-| Total| 170 |
+Agora o arquivo `projeto_leds.db` está pronto para uso.
 
-A pontuação final será calculada somando os critérios obrigatórios e os diferenciais implementados corretamente.
+---
 
-# Penalizações
+## ▶️ Como Rodar o Sistema
 
-Você será desclassificado se:
+### Opção 1: Interface de Linha de Comando (CLI)
+```bash
+python main.py
+```
+Menu disponível:
+- `1` → Buscar concurso por CPF
+- `2` → Buscar candidatos por código de concurso
+- `0` → Sair
 
-1. Enviar uma solução que não funcione.
-2. Não cumprir os critérios da seção **Avaliação**.
-3. For identificado plágio.
-   
-***Que a força esteja com você. Boa sorte!***
+### Opção 2: API REST com FastAPI
+```bash
+uvicorn api:app --reload --port 8001
+```
+Acesse no navegador:
+- Swagger UI: [http://127.0.0.1:8001/docs](http://127.0.0.1:8001/docs)
+- Redoc UI: [http://127.0.0.1:8001/redoc](http://127.0.0.1:8001/redoc)
 
-<div align="left">
-</div>
+Endpoints principais:
+- `GET /buscar-concursos/{cpf}` → Retorna concursos compatíveis com o CPF informado
+- `GET /buscar-candidatos/{codigo}` → Retorna candidatos compatíveis com o concurso informado
 
-###
+---
 
-<br clear="both">
+## 🧪 Testes Unitários
 
-<div align="center">
-  <a href="https://www.linkedin.com/school/ledsifes" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="40" alt="linkedin logo"  />
-  </a>
-  <a href="https://www.instagram.com/ledsifes/" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&labelColor=&style=for-the-badge" height="40" alt="instagram logo"  />
-  </a>
-  <a href="https://www.youtube.com/@ledsifes/?sub_confirmation=1" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge" height="40" alt="youtube logo"  />
-  </a>
-</div>
+O projeto possui **testes unitários** implementados com `pytest`.
 
-###
+### Rodando os testes:
+```bash
+python -m pytest -v
+```
+
+Exemplo de saída esperada:
+```
+collected 7 items
+
+test_modulo.py::test_normalizar_cpf PASSED
+test_modulo.py::test_carregar_candidatos PASSED
+test_modulo.py::test_carregar_concursos PASSED
+test_modulo.py::test_buscar_concurso_encontra PASSED
+test_modulo.py::test_buscar_concurso_invalido PASSED
+test_modulo.py::test_buscar_candidato_encontra PASSED
+test_modulo.py::test_buscar_candidato_invalido PASSED
+```
+
+✅ Todos os testes passando confirmam que o sistema funciona corretamente.
+
+---
+
+## 📖 Documentação do Código
+
+### `main.py`
+- Função `exibir_menu()` → Exibe as opções ao usuário.
+- Função `main()` → Executa o loop principal e chama o `modulo`.
+
+### `modulo.py`
+- `normalizar_cpf(cpf)` → Normaliza um CPF removendo caracteres especiais.
+- `carregar_candidatos()` → Carrega os candidatos do banco SQLite.
+- `carregar_concursos()` → Carrega os concursos do banco SQLite.
+- `buscar_concurso(cpf, candidatos, concursos)` → Busca concursos compatíveis com o candidato.
+- `buscar_candidato(codigo, candidatos, concursos)` → Busca candidatos compatíveis com o concurso.
+
+### `database_setup.py`
+- `criar_banco()` → Cria as tabelas `candidatos` e `concursos` no SQLite.
+
+### `importar_dados.py`
+- `importar_candidatos()` → Insere candidatos do `candidatos.txt` no banco.
+- `importar_concursos()` → Insere concursos do `concursos.txt` no banco.
+
+### `api.py`
+- Cria endpoints com FastAPI para buscar concursos e candidatos.
+
+---
+
+## ✅ Critérios Atendidos
+
+- [x] **Legibilidade do Código** → Segue PEP8, nomes claros, funções bem definidas.
+- [x] **Documentação do Código** → Docstrings em todas as funções.
+- [x] **Documentação da Solução** → README completo (setup, uso e arquitetura).
+- [x] **Tratamento de Erros** → CPF inexistente, concurso não encontrado, dados ausentes.
+- [x] **Testes Unitários** → Implementados com Pytest.
+
+---
+
+## 🌟 Diferenciais Implementados
+
+- [x] Criar um serviço com o problema (API REST com FastAPI) → **+30 pontos**
+- [x] Utilizar banco de dados (SQLite) → **+30 pontos**
+- [x] Implementar Clean Code (nomes claros, remoção de redundâncias) → **+20 pontos**
+- [x] Implementar o padrão de programação da tecnologia escolhida (PEP8, docstrings) → **+20 pontos**
+- [x] Implementar testes unitários (Pytest) → **+15 pontos**
+
+---
+
+## 👤 Autor
+Projeto desenvolvido por **Eliabe De Jesus Loureiro**.
